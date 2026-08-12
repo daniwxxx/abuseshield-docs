@@ -6,12 +6,12 @@ Esta lista describe el contrato operativo. Los nombres pueden variar según el a
 
 | Variable | Uso | Regla |
 | --- | --- | --- |
-| `ABUSESHIELD_PRIVACY_KEY` | Derivar identificadores operativos | Única, larga y fuera del repositorio |
-| `ABUSESHIELD_ADMIN_ENABLED` | Activar la consola | Desactivada si no existe una frontera autenticada |
-| `ABUSESHIELD_ADMIN_TOKEN` | Autenticar operación | Nunca se comparte con testers |
-| `ABUSESHIELD_METRICS_PUBLIC` | Exposición pública de métricas | Desactivada salvo protección explícita |
-| `ABUSESHIELD_TRUST_CLIENT_HEADERS` | Confianza en cabeceras de transporte | Desactivada salvo edge conocido |
-| `ABUSESHIELD_TRUSTED_PROXY_CIDRS` | Proxies que pueden aportar contexto | Lista explícita, nunca una red abierta |
+| `ABUSE_SHIELD_PRIVACY_KEY` | Derivar identificadores operativos | Única, larga y fuera del repositorio |
+| `ABUSE_SHIELD_ADMIN_ENABLED` | Activar la consola | Desactivada si no existe una frontera autenticada |
+| `ABUSE_SHIELD_ADMIN_TOKEN` | Autenticar operación | Nunca se comparte con testers |
+| `ABUSE_SHIELD_METRICS_PUBLIC` | Exposición pública de métricas | Desactivada salvo protección explícita |
+| `ABUSE_SHIELD_TRUST_CLIENT_HEADERS` | Confianza en cabeceras de transporte | Desactivada salvo edge conocido |
+| `ABUSE_SHIELD_TRUSTED_PROXY_CIDRS` | Proxies que pueden aportar contexto | Lista explícita, nunca una red abierta |
 
 ## Umbrales
 

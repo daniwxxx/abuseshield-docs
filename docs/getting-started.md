@@ -1,6 +1,6 @@
 # Primer arranque
 
-Esta guía sirve para entender la instalación antes de enviar tráfico real. No requiere conocer los motores internos.
+Esta guía sirve para entender la instalación antes de enviar tráfico real. No requiere conocer los motores internos. Los comandos se ejecutan en el checkout de distribución que incluye el Compose correspondiente; este repositorio público no contiene imágenes ni un stack ejecutable.
 
 ## Antes de empezar
 

@@ -6,10 +6,11 @@ Este proyecto contiene únicamente documentación pública, ejemplos de configur
 
 ## Empezar
 
-1. Lee [`docs/getting-started.md`](docs/getting-started.md)
-2. Elige un perfil en [`docs/deployments.md`](docs/deployments.md)
-3. Revisa [`config/abuseshield.env.example`](config/abuseshield.env.example)
-4. Consulta [`docs/operation.md`](docs/operation.md) antes de abrir tráfico real
+1. Lee [`docs/README.md`](docs/README.md)
+2. Sigue [`docs/getting-started.md`](docs/getting-started.md)
+3. Elige un alcance en [`docs/deployments.md`](docs/deployments.md)
+4. Revisa [`config/abuseshield.env.example`](config/abuseshield.env.example)
+5. Consulta [`docs/operation.md`](docs/operation.md) antes de abrir tráfico real
 
 ## Contenido
 
@@ -23,6 +24,10 @@ Este proyecto contiene únicamente documentación pública, ejemplos de configur
 | [`docs/mobile-and-api.md`](docs/mobile-and-api.md) | Apps, WebView, API, NAT y redes cambiantes |
 | [`api/abuseshield.openapi.yaml`](api/abuseshield.openapi.yaml) | Contrato HTTP público |
 | [`config/abuseshield.env.example`](config/abuseshield.env.example) | Variables de ejemplo, sin valores reutilizables |
+
+## Qué es y qué no es este repositorio
+
+Es la superficie pública de documentación y contratos. No es un paquete instalable ni un Compose completo: los archivos de configuración muestran nombres, límites y valores seguros por defecto, pero la imagen y el runtime se entregan por los canales de distribución correspondientes.
 
 ## Alcance de seguridad
 
