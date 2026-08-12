@@ -6,7 +6,7 @@ Esta lista describe el contrato operativo. Los nombres pueden variar según el a
 
 | Variable | Uso | Regla |
 | --- | --- | --- |
-| `ABUSE_SHIELD_PRIVACY_KEY` | Derivar identificadores operativos | Única, larga y fuera del repositorio |
+| `ABUSE_SHIELD_PRIVACY_KEY` | Derivar identificadores operativos | Única, larga y fuera del código |
 | `ABUSE_SHIELD_ADMIN_ENABLED` | Activar la consola | Desactivada si no existe una frontera autenticada |
 | `ABUSE_SHIELD_ADMIN_TOKEN` | Autenticar operación | Nunca se comparte con testers |
 | `ABUSE_SHIELD_METRICS_PUBLIC` | Exposición pública de métricas | Desactivada salvo protección explícita |

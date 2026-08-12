@@ -1,8 +1,8 @@
 # AbuseShield Docs
 
-Documentación pública para entender, configurar y operar AbuseShield sin acceder al repositorio del runtime.
+Documentación pública para entender, configurar y operar AbuseShield con una ruta clara de integración.
 
-Este proyecto contiene únicamente documentación pública, ejemplos de configuración sin secretos y el contrato HTTP publicado. No contiene código de detección, datos de clientes, credenciales, paneles internos, resultados de pruebas ni artefactos de auditoría.
+Aquí encontrarás la guía de arranque, los perfiles de despliegue, la configuración pública y el contrato HTTP de AbuseShield.
 
 ## Empezar
 
@@ -25,15 +25,15 @@ Este proyecto contiene únicamente documentación pública, ejemplos de configur
 | [`api/abuseshield.openapi.yaml`](api/abuseshield.openapi.yaml) | Contrato HTTP público |
 | [`config/abuseshield.env.example`](config/abuseshield.env.example) | Variables de ejemplo, sin valores reutilizables |
 
-## Qué es y qué no es este repositorio
+## Cómo usar esta documentación
 
-Es la superficie pública de documentación y contratos. No es un paquete instalable ni un Compose completo: los archivos de configuración muestran nombres, límites y valores seguros por defecto, pero la imagen y el runtime se entregan por los canales de distribución correspondientes.
+La configuración de ejemplo muestra nombres, límites y valores seguros por defecto. La instalación completa se realiza con el paquete de distribución y la edición de despliegue que corresponda a tu entorno.
 
 ## Alcance de seguridad
 
-Los valores de ejemplo que parecen secretos son marcadores deliberadamente inválidos. Deben generarse fuera del repositorio y montarse mediante el mecanismo de secretos del entorno. No copies una clave de este proyecto a producción.
+Los valores de ejemplo que parecen secretos son marcadores deliberadamente inválidos. Deben generarse fuera del código y montarse mediante el mecanismo de secretos del entorno. No copies una clave de esta documentación a producción.
 
-Este repositorio no concede acceso al Command Center, Grafana, Redis, ClickHouse ni a ninguna superficie administrativa.
+La consola, Grafana, Redis y ClickHouse se habilitan desde la edición de despliegue correspondiente y requieren sus propias credenciales.
 
 ## Estado
 

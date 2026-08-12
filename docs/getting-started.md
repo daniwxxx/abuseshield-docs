@@ -1,19 +1,19 @@
 # Primer arranque
 
-Esta guía sirve para entender la instalación antes de enviar tráfico real. No requiere conocer los motores internos. Los comandos se ejecutan en el checkout de distribución que incluye el Compose correspondiente; este repositorio público no contiene imágenes ni un stack ejecutable.
+Esta guía sirve para entender la instalación antes de enviar tráfico real. No requiere conocer los motores internos. Los comandos se ejecutan en la carpeta de distribución que incluye el Compose correspondiente.
 
 ## Antes de empezar
 
 - Docker Compose disponible en el equipo donde se ejecutará el servicio
 - Una red de entrada conocida, si existe un proxy o balanceador delante
-- Secretos generados fuera del repositorio
+- Secretos generados fuera del código
 - Una ruta de vuelta atrás documentada
 
 ## Secuencia
 
 ```bash
 cp config/abuseshield.env.example .env
-# Reemplaza todos los marcadores por secretos generados fuera del repositorio
+# Reemplaza todos los marcadores por secretos generados fuera del código
 docker compose config --quiet
 docker compose up -d
 docker compose ps

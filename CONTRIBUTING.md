@@ -1,6 +1,6 @@
 # Contribuir
 
-Las contribuciones deben mantener este repositorio como una superficie pública, clara y separada del runtime privado.
+Las contribuciones deben mantener esta documentación como una superficie pública, clara y separada del runtime de decisión.
 
 ## Antes de abrir un cambio
 

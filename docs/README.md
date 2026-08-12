@@ -17,6 +17,6 @@
 - [OpenAPI público](../api/abuseshield.openapi.yaml)
 - [Variables de entorno de ejemplo](../config/abuseshield.env.example)
 
-## Límite de esta documentación
+## Cómo está organizada
 
-Los detalles internos de engines, incidentes, auditorías, paneles y despliegues privados no forman parte de este repositorio. La documentación pública describe el comportamiento que una integración puede comprobar, no la implementación completa.
+La guía principal describe el comportamiento que una integración puede comprobar. La referencia técnica y la operación avanzada se consultan desde sus recorridos correspondientes, sin mezclar el primer arranque con el detalle de mantenimiento.

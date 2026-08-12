@@ -1,6 +1,6 @@
 # Seguridad
 
-Este repositorio contiene documentación pública y ejemplos sin secretos. No contiene el runtime ni rutas para operar una instalación.
+Este proyecto contiene documentación pública y ejemplos sin secretos. Las rutas administrativas y los datos operativos se gestionan en la instalación correspondiente.
 
 ## No publiques
 
