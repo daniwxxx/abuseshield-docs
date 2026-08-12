@@ -1,0 +1,43 @@
+openapi: 3.1.0
+info:
+  title: AbuseShield public HTTP contract
+  version: 0.1.0
+  description: Publicly documented response shapes. Administrative authentication and deployment-specific routes are intentionally omitted.
+servers:
+  - url: https://example.invalid
+paths:
+  /:
+    get:
+      summary: Protected application entry
+      responses:
+        '200':
+          description: Application response
+        '403':
+          description: Request denied or challenge required
+  /abuseshield/clearance:
+    post:
+      summary: Submit a negotiated clearance proof
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [challenge_id, nonce]
+              additionalProperties: false
+              properties:
+                challenge_id:
+                  type: string
+                  maxLength: 128
+                nonce:
+                  type: string
+                  maxLength: 128
+      responses:
+        '200':
+          description: Proof accepted for its bound context
+        '400':
+          description: Invalid request shape
+        '403':
+          description: Proof rejected
+        '429':
+          description: Retry later
