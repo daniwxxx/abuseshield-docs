@@ -1,22 +1,25 @@
-# Índice de documentación
+# Guía
+
+La documentación está ordenada por tarea, no por el nombre de un motor.
 
 ## Recorrido recomendado
 
-| Paso | Documento | Pregunta que responde |
-| --- | --- | --- |
-| 1 | [Primer arranque](getting-started.md) | ¿Qué necesito y cómo compruebo el primer boot? |
-| 2 | [Alcances de despliegue](deployments.md) | ¿Qué servicios necesito realmente? |
-| 3 | [Configuración](configuration.md) | ¿Qué valores no deben quedar inseguros? |
-| 4 | [Arquitectura](architecture.md) | ¿Por dónde pasa una solicitud y qué frontera existe? |
-| 5 | [Operación](operation.md) | ¿Qué miro cuando aparece una decisión o una degradación? |
-| 6 | [Apps y API](mobile-and-api.md) | ¿Cómo cambia la lectura para móviles, WebView e integraciones? |
-| 7 | [Compatibilidad](compatibility.md) | ¿Qué capacidades se esperan de cada cliente? |
+1. [Primer arranque](getting-started.md) para preparar el host y comprobar el primer tráfico
+2. [Despliegues](deployments.md) para elegir una edición sin mezclar volúmenes
+3. [Configuración](configuration.md) para validar secretos, red y límites
+4. [Arquitectura](architecture.md) para entender las fronteras
+5. [Motores](engines.md) para conocer qué señales se combinan y cuáles no bastan solas
+6. [Operación](operation.md) para leer decisiones y volver atrás
+7. [Troubleshooting](troubleshooting.md) cuando algo no responde como esperabas
+8. [Compatibilidad](compatibility.md) y [Móvil y API](mobile-and-api.md) para clientes que no son un navegador convencional
 
-## Contratos y ejemplos
+## Referencias
 
-- [OpenAPI público](../api/abuseshield.openapi.yaml)
-- [Variables de entorno de ejemplo](../config/abuseshield.env.example)
+- [Configuración de ejemplo](../config/abuseshield.env.example)
+- [Contrato HTTP](../api/abuseshield.openapi.yaml)
+- [Seguridad para reportes](../SECURITY.md)
+- [Cambios publicados](../CHANGELOG.md)
 
-## Cómo está organizada
+## Cómo leer una decisión
 
-La guía principal describe el comportamiento que una integración puede comprobar. La referencia técnica y la operación avanzada se consultan desde sus recorridos correspondientes, sin mezclar el primer arranque con el detalle de mantenimiento.
+Busca siempre cinco cosas: acción, alcance, evidencia disponible, dependencia que participó y ventana de tiempo. Una razón aislada no es una identidad ni una sentencia permanente.

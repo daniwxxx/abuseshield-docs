@@ -1,27 +1,54 @@
 # Arquitectura pública
 
-## Recorrido
+Esta vista explica el recorrido sin exponer nombres internos ni detalles que ayuden a esquivar controles.
 
-```text
-cliente -> entrada protegida -> AbuseShield -> aplicación de origen
-                         \
-                          -> superficies de operación autenticadas
+## Recorrido de una solicitud
+
+```mermaid
+flowchart LR
+    C[Cliente\nweb, app, API o webhook] --> E[Entrada protegida]
+    E --> P[Prelectura\nforma, red y capacidad]
+    P --> M[Runtime de decisión]
+    M --> A{Respuesta}
+    A -->|allow / observe| O[Aplicación de origen]
+    A -->|challenge| H[Comprobación compatible]
+    A -->|deny| D[Respuesta limitada]
+    M --> T[Traza operativa sin datos crudos]
+    T --> V[Consola y métricas protegidas]
 ```
 
-La entrada pública y la consola tienen propósitos distintos. La consola no debe convertirse en un camino alternativo hacia la aplicación.
+La consola y la telemetría son salidas de operación. No son una segunda entrada hacia la aplicación.
 
-## Qué se observa
+## Qué ocurre dentro del runtime
 
-AbuseShield combina contexto de conexión, capacidad del cliente, ruta, sesión, ritmo y evolución. La IP, una VPN, un navegador concreto o una red compartida no son una identidad suficiente por sí solos.
+```mermaid
+flowchart TD
+    R[Solicitud] --> N[Normalizar contexto]
+    N --> I[Identidad vinculada y aislamiento]
+    I --> S[Señales de conexión, ruta, sesión y ritmo]
+    S --> G[Combinar evidencia independiente]
+    G --> Q{¿La evidencia alcanza?}
+    Q -->|no| L[Respuesta limitada y revisable]
+    Q -->|sí| B[Política de acción]
+    B --> X[allow, observe, challenge o deny]
+    G --> H[Salud del runtime y módulos]
+    H --> F[Degradación explícita]
+    F --> X
+```
 
-## Alcance de una respuesta
+## Fronteras que deben mantenerse
 
-Una respuesta debe indicar si afecta a una solicitud, sesión, ruta, identidad vinculada o red compartida. Las redes de hoteles, oficinas, campus, operadores móviles y CGNAT requieren especial cuidado: muchas personas pueden compartir una salida pública.
+- La entrada pública es la única puerta hacia el origen
+- La aplicación no confía en cabeceras de transporte que el cliente pueda escribir
+- Los proxies confiables se declaran por red, no por una cabecera cualquiera
+- La consola requiere autenticación y no se publica por defecto
+- Redis coordina el estado compartido cuando está disponible; el estado local se marca como limitado
+- La telemetría usa identificadores derivados, límites y retención definida
 
-## Degradación
+## Redes compartidas
 
-Si una dependencia compartida no responde, el runtime debe marcar la coordinación como limitada. El fallback local no equivale a memoria compartida entre réplicas y no debe presentarse como si lo fuera.
+Hoteles, oficinas, campus, operadores móviles, VPN y CGNAT pueden poner a muchas personas detrás de una misma dirección pública. Por eso una IP puede aportar contexto de red, pero no debe bastar para bloquear a todos.
 
-## Privacidad
+## Qué no debe inferirse
 
-La telemetría pública debe usar identificadores derivados, límites de tamaño y retención definida. No se deben exportar IP, cookies, cuerpos, tokens ni mensajes de excepción crudos.
+Un fingerprint no identifica por sí solo a una persona. Un challenge superado no concede confianza permanente. Una señal ausente no prueba abuso. La decisión tiene que conservar alcance, motivo y nivel de evidencia.

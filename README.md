@@ -1,44 +1,43 @@
-# AbuseShield Docs
+# AbuseShield
 
-Documentación pública para entender, configurar y operar AbuseShield con una ruta clara de integración.
+Documentación pública para poner AbuseShield delante de una aplicación, entender sus decisiones y operar los cambios sin adivinar.
 
-Aquí encontrarás la guía de arranque, los perfiles de despliegue, la configuración pública y el contrato HTTP de AbuseShield.
+AbuseShield no trata una IP, una VPN o un navegador como una identidad. Lee el contexto disponible, aplica una respuesta acotada y deja una explicación que se pueda revisar. Cuando falta información, la respuesta no se presenta como una certeza.
 
-## Empezar
+## Para empezar
 
-1. Lee [`docs/README.md`](docs/README.md)
-2. Sigue [`docs/getting-started.md`](docs/getting-started.md)
-3. Elige un alcance en [`docs/deployments.md`](docs/deployments.md)
-4. Revisa [`config/abuseshield.env.example`](config/abuseshield.env.example)
-5. Consulta [`docs/operation.md`](docs/operation.md) antes de abrir tráfico real
-
-## Contenido
-
-| Ruta | Para qué sirve |
+| Si necesitas | Ve a |
 | --- | --- |
-| [`docs/getting-started.md`](docs/getting-started.md) | Primer arranque y comprobaciones |
-| [`docs/deployments.md`](docs/deployments.md) | Alcances de despliegue |
-| [`docs/configuration.md`](docs/configuration.md) | Variables públicas y límites |
-| [`docs/architecture.md`](docs/architecture.md) | Fronteras y recorrido de una solicitud |
-| [`docs/operation.md`](docs/operation.md) | Lectura diaria, degradación y vuelta atrás |
-| [`docs/mobile-and-api.md`](docs/mobile-and-api.md) | Apps, WebView, API, NAT y redes cambiantes |
-| [`api/abuseshield.openapi.yaml`](api/abuseshield.openapi.yaml) | Contrato HTTP público |
-| [`config/abuseshield.env.example`](config/abuseshield.env.example) | Variables de ejemplo, sin valores reutilizables |
+| Levantar la primera edición | [Primer arranque](docs/getting-started.md) |
+| Elegir los servicios necesarios | [Despliegues](docs/deployments.md) |
+| Configurar secretos y límites | [Configuración](docs/configuration.md) |
+| Entender el recorrido de una solicitud | [Arquitectura](docs/architecture.md) |
+| Saber qué hace cada familia de motores | [Motores](docs/engines.md) |
+| Revisar una decisión | [Operación](docs/operation.md) |
+| Resolver un problema | [Troubleshooting](docs/troubleshooting.md) |
+| Integrar una app o API | [Móvil y API](docs/mobile-and-api.md) |
 
-## Cómo usar esta documentación
+## Qué encontrarás aquí
 
-La configuración de ejemplo muestra nombres, límites y valores seguros por defecto. La instalación completa se realiza con el paquete de distribución y la edición de despliegue que corresponda a tu entorno.
+- procedimientos con comprobaciones y resultado esperado
+- configuración pública con marcadores que no funcionan como secretos
+- diagramas de la entrada, el runtime y la observabilidad
+- diferencias entre navegador, API, webhook, app y WebView
+- límites conocidos y casos que todavía requieren evidencia externa
+- contrato HTTP público en [OpenAPI](api/abuseshield.openapi.yaml)
 
-## Alcance de seguridad
+## Lo que esta documentación no promete
 
-Los valores de ejemplo que parecen secretos son marcadores deliberadamente inválidos. Deben generarse fuera del código y montarse mediante el mecanismo de secretos del entorno. No copies una clave de esta documentación a producción.
+No hay métricas de fraude inventadas ni una promesa de cero falsos positivos. La eficacia depende del tráfico, la aplicación, la configuración y la ventana de observación. Un panel vacío significa que falta fuente o actividad clasificada, no que el abuso sea cero.
 
-La consola, Grafana, Redis y ClickHouse se habilitan desde la edición de despliegue correspondiente y requieren sus propias credenciales.
+## Regla de seguridad
 
-## Estado
+Una configuración insegura debe detener el arranque. No copies valores del ejemplo a producción, no publiques el token de operador y no abras la consola para facilitar una prueba.
 
-La documentación describe contratos públicos y decisiones de operación. No presenta métricas inventadas ni garantiza resultados de fraude sin una ventana de tráfico y evidencia verificable.
+## Estado de la referencia
+
+Esta carpeta describe la superficie pública y la operación que puede verificarse desde una distribución. No incluye código interno, secretos, rutas privadas ni instrucciones para evadir controles.
 
 ## Licencia
 
-Consulta [`LICENSE`](LICENSE).
+Consulta [LICENSE](LICENSE).

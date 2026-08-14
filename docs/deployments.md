@@ -1,23 +1,30 @@
-# Alcances de despliegue
+# Despliegues
 
-Los nombres describen capacidades, no niveles de marketing. Cada alcance añade servicios y superficie operativa.
+Las ediciones son alcances de operación. No son planes comerciales ni cambian las reglas de seguridad.
 
-| Alcance | Incluye | Se usa para |
+| Edición | Añade | Cuándo usarla |
 | --- | --- | --- |
-| `core` | Entrada, aplicación, memoria compartida y control de arranque | Proteger tráfico con la superficie mínima |
-| `operations` | `core` más consola autenticada, métricas y paneles | Operar y revisar decisiones |
-| `intelligence` | `operations` más retención y correlación | Investigar evolución y campañas |
-| `lab` | `intelligence` más pruebas y fallos controlados | Validar hipótesis en infraestructura propia |
+| `core` | Entrada protegida, aplicación, Redis y control de arranque | Primer tráfico y protección con superficie mínima |
+| `operations` | Consola autenticada, métricas y paneles | Operación diaria y revisión de decisiones |
+| `intelligence` | Retención, correlación y servicios de análisis | Investigación de evolución y campañas |
+| `lab` | Pruebas aisladas, proxy y fallos controlados | Validación en infraestructura propia o autorizada |
 
-Un alcance superior no arregla una configuración insegura. El mismo control de arranque se aplica antes de recibir tráfico.
+Cada edición incluye la anterior. El laboratorio no debe compartir estado con tráfico humano.
 
-## Regla de avance
+## Qué se necesita antes de subir de alcance
 
-Avanza solo cuando el alcance actual tiene:
-
-- salud comprobada
+- health comprobable
 - datos recientes de la entrada protegida
-- un rollback reproducible
-- una ruta clara para revisar falsos positivos
+- secretos separados y rotables
+- vuelta atrás probada
+- operador que sepa leer un falso positivo y una omisión
 
-El laboratorio debe estar separado del tráfico humano y cada evidencia debe conservar su origen.
+## Un proyecto por edición
+
+Usa un nombre Compose y un conjunto de volúmenes distinto para cada edición. No levantes `core` y `lab` sobre la misma red esperando que el aislamiento ocurra por nombre de servicio.
+
+El paquete de distribución contiene el Compose de cada edición. Este repositorio publica la configuración explicada, no reemplaza los archivos de despliegue ni genera secretos por ti.
+
+## Arranque seguro
+
+Si falta un secreto, hay un placeholder, la consola está abierta sin autenticación o los umbrales están invertidos, el arranque debe quedar en `BOOT_DENIED`. Corregir la causa es parte de la instalación; bajar el guard para continuar no lo es.
