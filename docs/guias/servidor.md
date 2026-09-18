@@ -26,9 +26,8 @@ antes de elegir recursos; no todas tienen el mismo coste operativo.
 Accede por SSH al servidor, sitúate en tu copia completa del repositorio y ejecuta:
 
 ```bash
-cd deploy/editions/operations
-docker compose up --build --detach --wait --wait-timeout 900
-docker compose ps --all
+./abuseshield up operations
+./abuseshield status operations
 curl -i http://127.0.0.1:8080/
 ```
 
@@ -84,8 +83,8 @@ export ABUSE_SHIELD_COMPOSE_PROJECT=abuseshield-pruebas
 export ABUSE_SHIELD_HTTP_PORT=8180
 export ABUSE_SHIELD_HTTPS_PORT=8543
 export ABUSE_SHIELD_GRAFANA_PORT=3101
-docker compose up --detach --wait
-docker compose ps --all
+./abuseshield up operations
+./abuseshield status operations
 ```
 
 Cambiar solo los puertos no separa el estado: el nombre del proyecto es el que

@@ -17,35 +17,32 @@ Se requiere Docker con Compose 2.24.4 o posterior. Si `docker info` no responde,
 resuelve primero el [acceso a Docker](problemas.md#docker-no-responde).
 La primera construcción necesita Internet para descargar imágenes y paquetes.
 PHP, Go y Rust se compilan o ejecutan dentro de sus contenedores; no necesitas
-instalarlos en el equipo para usar Compose directamente.
+instalarlos en el equipo para usar el CLI ni Compose.
 
 ## Arranca una edición
 
-Desde la carpeta del repositorio, para empezar con protección sin paneles:
+Desde la **raíz del repositorio**, el camino soportado es el CLI:
 
 ```bash
-cd deploy/editions/core
-docker compose up
+./abuseshield up core
+./abuseshield status core
 ```
 
-Deja la terminal abierta mientras lo pruebas. El primer arranque puede tardar
-porque construye las imágenes que falten. Si ya tienes imágenes de otra versión,
-usa `docker compose up --build` para incorporar los cambios del código.
+Sustituye `core` por la edición elegida. El primer arranque puede tardar porque
+construye las imágenes que falten. `up` fija el proyecto `abuseshield-<edición>`,
+espera los health checks y ejecuta el doctor. Una salida correcta identifica la
+edición, los endpoints locales y cada comprobación.
 
 No hace falta crear `.env`. El servicio `edition-bootstrap` genera las claves,
 las guarda en un volumen de Docker y termina con código 0. La aplicación valida
-la configuración antes de atender solicitudes. El mensaje
-`AbuseShield core is ready` indica que terminó la comprobación inicial.
+la configuración antes de atender solicitudes.
 
-Para dejarlo funcionando sin mantener la terminal abierta:
-
-```bash
-docker compose up --build --detach --wait --wait-timeout 900
-docker compose ps --all
-```
-
-Es normal que `edition-bootstrap` figure como `Exited (0)`: su tarea acaba al
-preparar las claves. Un código distinto de 0 requiere revisar sus logs.
+No uses solo `docker compose up` a mano salvo que sepas el proyecto y los
+checks: omite doctor y el naming canónico. Si necesitas Compose en crudo (por
+ejemplo sin Bash/jq), entra en `deploy/editions/core` y usa
+`docker compose up --build --detach --wait --wait-timeout 900`, luego
+`docker compose ps --all`. Es normal que `edition-bootstrap` figure como
+`Exited (0)`.
 
 ## Abre la primera dirección
 
@@ -67,21 +64,18 @@ un certificado válido, como explica [la guía de servidor](servidor.md).
 
 ## Revisar y detener
 
-Desde la misma carpeta de edición:
+Desde la raíz del repositorio:
 
 ```bash
-docker compose logs --tail 80 app
-docker compose down
+./abuseshield logs core app
+./abuseshield down core
 ```
 
 `down` detiene y retira los contenedores, pero conserva sus volúmenes. El próximo
-`docker compose up` reutiliza las claves y el estado. No añadas `--volumes` para
-un reinicio: esa opción borra los datos persistentes.
+`./abuseshield up core` reutiliza las claves y el estado. No añadas `--volumes`
+para un reinicio: esa opción borra los datos persistentes.
 
-También puedes usar `./abuseshield up core` desde la raíz del repositorio.
-Construye, espera el arranque y ejecuta diagnósticos adicionales; usa el mismo
-proyecto predeterminado `abuseshield-core`. Estos diagnósticos requieren Bash,
-curl, jq y Python 3 en el equipo.
+Los diagnósticos del CLI requieren Bash, curl, jq y Python 3 en el equipo.
 
 Si actualizas una instalación creada con un nombre antiguo, conserva ese nombre
 como explica [recuperar el proyecto existente](problemas.md#después-de-actualizar-parece-que-no-hay-historial).

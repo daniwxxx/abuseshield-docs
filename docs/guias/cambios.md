@@ -47,8 +47,8 @@ Ensaya primero en una instalación aparte, con otro nombre y otros puertos.
 Elige la versión a desplegar y, desde la carpeta de su edición:
 
 ```bash
-docker compose up --build --detach --wait --wait-timeout 900
-docker compose ps --all
+./abuseshield up operations
+./abuseshield status operations
 ```
 
 Comprueba una solicitud que llegue a tu aplicación, el acceso al panel y que el

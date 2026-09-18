@@ -47,12 +47,12 @@ Genera otro valor para cada clave adicional, guarda y restringe el acceso:
 
 ```bash
 chmod 600 .env
-docker compose up
+./abuseshield up operations
 ```
 
-Alternativamente, `./abuseshield setup operations` desde la raíz prepara un `.env`
+Antes, `./abuseshield setup operations` desde la raíz prepara un `.env`
 con claves generadas y valida su contenido. Esa preparación usa PHP y OpenSSL
-del equipo; no es necesaria para el arranque automático con Compose.
+del equipo; no es necesaria para el arranque automático con bootstrap.
 
 | Nombre en la configuración | Para qué se usa |
 |---|---|

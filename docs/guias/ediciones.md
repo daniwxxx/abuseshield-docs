@@ -1,7 +1,7 @@
 # Elegir una edición
 
 La edición determina qué servicios se levantan juntos. No cambia la forma de
-instalar: entra en su carpeta y ejecuta `docker compose up`.
+instalar: desde la raíz del repositorio ejecuta `./abuseshield up <edición>`.
 
 | Edición | Cuándo elegirla | Qué incorpora |
 |---|---|---|
