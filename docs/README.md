@@ -23,3 +23,7 @@ La documentación está ordenada por tarea, no por el nombre de un motor.
 ## Cómo leer una decisión
 
 Busca siempre cinco cosas: acción, alcance, evidencia disponible, dependencia que participó y ventana de tiempo. Una razón aislada no es una identidad ni una sentencia permanente.
+
+## Guías por tarea
+
+Las guías operativas en español están en [guias/README.md](guias/README.md).
