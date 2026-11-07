@@ -17,18 +17,20 @@ respuestas HTTP y acceso autenticado; no se limita a ver si un proceso está viv
 | `observe` | Continúa y queda señalada para observación |
 | `challenge` | Se pide una comprobación adicional |
 | `block` | Se rechaza la solicitud |
-| `retry` | El cliente debe esperar o reintentar según la respuesta |
+
+Si la respuesta incluye `Retry-After`, el cliente debe esperar ese tiempo antes
+de repetir. Es una instrucción de la respuesta, no una quinta acción pública.
 
 `degraded` describe un estado de funcionamiento reducido, no otra forma de decir
 que el visitante es hostil. Revisa qué dependencia falta y qué decisión se tomó.
 
-En la War Room elige la cuenta y el período que corresponden. Busca la solicitud
+En el panel operativo elige la cuenta y el período que corresponden. Busca la solicitud
 por hora, ruta e identificador de correlación. Primero mira qué ocurrió y a qué
 alcance se aplicó; luego revisa las razones y el estado de los servicios.
 
 Grafana ayuda a ver la evolución de los datos. Un panel vacío puede significar
 que no hubo tráfico, que elegiste otro período o que falló la recolección.
-Consulta [la guía de paneles](../runbooks/dashboard-guide.md) para comprobar la
+Consulta [la guía de paneles](../operation.md) para comprobar la
 fuente antes de interpretar un cero.
 
 ## Cuando una persona no puede continuar

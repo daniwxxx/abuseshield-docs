@@ -53,30 +53,30 @@ flowchart LR
     https --> proteccion[AbuseShield]
     proteccion --> app[Tu aplicación sin entrada pública alternativa]
     operador[Tu equipo] --> ssh[Acceso privado por SSH]
-    ssh --> panel[War Room y Grafana]
+    ssh --> panel[panel operativo y Grafana]
 ```
 
-El Compose incluido sirve el runtime de AbuseShield. No detecta dónde vive tu
-aplicación ni cambia sus rutas por ti. Completa la
+Los servicios incluidos ejecutan AbuseShield. No detectan dónde vive tu
+aplicación ni cambian sus rutas por ti. Completa la
 [integración web](../integrations/web.md) o [Laravel](../integrations/laravel.md)
 y comprueba que una solicitud llegue a tu aplicación pasando por la protección.
 
 Para publicar, necesitas una dirección y un certificado válido. El certificado
 autofirmado inicial solo sirve para pruebas locales. La configuración del
 servidor frontal debe permitir las rutas de usuario, mantener privados los
-endpoints administrativos y evitar que se pueda llegar directamente a la
+accesos administrativos y evitar que se pueda llegar directamente a la
 aplicación saltando AbuseShield.
 
-Si hay otro proxy delante, configura cuáles de sus direcciones son de confianza.
-No aceptes una dirección de visitante solo porque aparece en un header: un
-cliente también puede enviar esos datos. Consulta
-[la configuración técnica](../configuration.md) y [HTTPS](../runbooks/tls-edge.md)
+Si hay otro servidor intermediario delante, configura cuáles de sus direcciones
+son de confianza. No aceptes una dirección de visitante solo porque aparece en
+una cabecera HTTP: un cliente también puede enviar esos datos. Consulta
+[la configuración técnica](../configuration.md) y [HTTPS](../configuration.md)
 para adaptar esa frontera a tu infraestructura.
 
 ## Dos instalaciones en la misma máquina
 
-Desde la carpeta de una edición, usa otro nombre y puertos libres. Mantén estas
-variables en esa terminal para todas las operaciones del segundo despliegue:
+Desde la raíz del repositorio, usa otro nombre y puertos libres. Mantén estas
+variables en esa terminal para todas las operaciones de la segunda instalación:
 
 ```bash
 export ABUSE_SHIELD_COMPOSE_PROJECT=abuseshield-pruebas

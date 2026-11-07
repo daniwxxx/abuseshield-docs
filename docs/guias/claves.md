@@ -19,7 +19,7 @@ privada, sin grabación ni pantalla compartida:
 ./abuseshield access operations --show-secrets
 ```
 
-Usa `ABUSE_SHIELD_ADMIN_TOKEN` en la War Room. Para Grafana, el usuario inicial
+Usa `ABUSE_SHIELD_ADMIN_TOKEN` en el panel operativo. Para Grafana, el usuario inicial
 es `admin` y la contraseña es `GF_PASSWORD`. Sustituye `operations` si usas otra
 edición con paneles. En `core` no hay consola habilitada por defecto.
 
@@ -52,7 +52,7 @@ chmod 600 .env
 
 Antes, `./abuseshield setup operations` desde la raíz prepara un `.env`
 con claves generadas y valida su contenido. Esa preparación usa PHP y OpenSSL
-del equipo; no es necesaria para el arranque automático con bootstrap.
+del equipo; no es necesaria para la preparación automática dentro de Docker.
 
 | Nombre en la configuración | Para qué se usa |
 |---|---|
@@ -78,7 +78,7 @@ procedimiento de rotación.
 No envíes `.env`, el contenido de los volúmenes ni el resultado de
 `--show-secrets` en tickets. Las claves suministradas como variables pueden verse
 en la configuración del contenedor de preparación por administradores de Docker;
-ese acceso equivale a administrar el despliegue. Los backups también pueden
+ese acceso equivale a administrar el despliegue. Las copias también pueden
 contenerlas y necesitan almacenamiento privado.
 
 Las credenciales de Apple y Google se obtienen en sus plataformas y se configuran

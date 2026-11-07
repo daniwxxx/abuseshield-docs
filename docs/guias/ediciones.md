@@ -6,7 +6,7 @@ instalar: desde la raíz del repositorio ejecuta `./abuseshield up <edición>`.
 | Edición | Cuándo elegirla | Qué incorpora |
 |---|---|---|
 | `core` | Quieres conectar la protección y revisar el arranque desde la terminal | Entrada HTTP/HTTPS, aplicación, memoria compartida y comprobación de configuración |
-| `operations` | Necesitas revisar solicitudes y el estado del servicio a diario | Lo anterior, War Room, gráficos, logs, trazas y procesos Go/Rust de comparación |
+| `operations` | Necesitas revisar solicitudes y el estado del servicio a diario | Lo anterior, panel operativo, gráficos, logs, trazas y procesos Go/Rust de comparación |
 | `intelligence` | Necesitas conservar más eventos y relacionar actividad a lo largo del tiempo | Lo anterior, almacenamiento de eventos, análisis de conexiones y servicios adicionales de análisis |
 | `lab` | Vas a probar cambios y provocar fallos en un entorno separado | Lo anterior y herramientas para pruebas de red y tráfico autorizado |
 
@@ -15,6 +15,22 @@ Su presencia no significa que se haya promovido toda la decisión a código nati
 En `intelligence`, JA4 resume características de una conexión cifrada; no
 identifica por sí solo a una persona. Si otra infraestructura termina la conexión
 antes, la información disponible cambia.
+
+```mermaid
+flowchart TD
+    inicio[¿Qué necesitas mantener?] --> proteger[Solo proteger y comprobar el arranque]
+    inicio --> operar[Revisar decisiones y salud a diario]
+    inicio --> investigar[Conservar historia y relacionar actividad]
+    inicio --> probar[Provocar carga o fallos en un entorno separado]
+    proteger --> core[core]
+    operar --> operations[operations]
+    investigar --> intelligence[intelligence]
+    probar --> lab[lab]
+```
+
+Empieza por la edición más pequeña que cubra tu tarea. Añadir servicios aumenta
+memoria, almacenamiento y trabajo operativo; no mejora una integración que aún
+permite llegar directamente a la aplicación.
 
 ## Carpetas y direcciones
 

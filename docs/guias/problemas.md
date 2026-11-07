@@ -4,6 +4,20 @@ Los comandos Compose de esta página se ejecutan desde la carpeta de tu edición
 Conserva el mensaje de error y su hora; antes de compartirlo, revisa que no incluya
 credenciales.
 
+```mermaid
+flowchart TD
+    inicio[Algo no funciona] --> connection{¿Hay respuesta HTTP?}
+    connection -->|No| transport[Revisar Docker, puerto y red]
+    connection -->|Sí| status{¿Qué código responde?}
+    status -->|403| decision[Revisar acción e identificador]
+    status -->|404| edition[Confirmar ruta y edición]
+    status -->|502| origin[Revisar Nginx y aplicación]
+    status -->|200 pero panel vacío| data[Revisar período y fuentes de datos]
+```
+
+No cambies sensibilidad hasta separar una decisión de protección de un fallo de
+transporte o de una dependencia.
+
 ## Docker no responde
 
 ```bash
@@ -72,7 +86,7 @@ Comprueba el período elegido, la dirección publicada y las credenciales. Si el
 servicio está en un VPS, abre la conexión SSH de [acceso remoto](servidor.md):
 los puertos iniciales no son públicos. Luego ejecuta `./abuseshield status` con
 tu edición desde la raíz del repositorio y revisa
-[las fuentes de datos](../runbooks/dashboard-guide.md).
+[las fuentes de datos](../operation.md).
 
 ## Una comprobación no termina
 

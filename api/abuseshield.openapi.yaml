@@ -1,8 +1,11 @@
 openapi: 3.1.0
 info:
   title: AbuseShield public HTTP contract
-  version: 0.1.0
-  description: Publicly documented response shapes. Administrative authentication and deployment-specific routes are intentionally omitted.
+  version: 0.1.7
+  description: >-
+    Publicly documented HTTP entrypoints and response shapes. Administrative
+    authentication and deployment-specific operator routes are intentionally
+    omitted from this public contract.
 servers:
   - url: https://example.invalid
 paths:
@@ -11,9 +14,38 @@ paths:
       summary: Protected application entry
       responses:
         '200':
-          description: Application response
+          description: Application response (allow or observe)
+          headers:
+            X-AbuseShield-Action:
+              schema:
+                type: string
+                enum: [allow, observe]
+            X-Correlation-ID:
+              schema:
+                type: string
         '403':
-          description: Request denied or challenge required
+          description: Request denied (block) or challenge required (challenge)
+          headers:
+            X-AbuseShield-Action:
+              schema:
+                type: string
+                enum: [challenge, block]
+            X-Correlation-ID:
+              schema:
+                type: string
+        '503':
+          description: Shared challenge state unavailable; client should retry after Retry-After
+          headers:
+            X-AbuseShield-Action:
+              schema:
+                type: string
+                enum: [retry]
+            Retry-After:
+              schema:
+                type: integer
+            X-Correlation-ID:
+              schema:
+                type: string
   /abuseshield/clearance:
     post:
       summary: Submit a negotiated clearance proof
@@ -41,3 +73,48 @@ paths:
           description: Proof rejected
         '429':
           description: Retry later
+        '503':
+          description: Shared challenge state unavailable; client should retry
+  /abuseshield/sensor-token:
+    post:
+      summary: Issue a short-lived actor-bound single-use sensor token
+      responses:
+        '200':
+          description: Sensor token issued
+        '429':
+          description: Token budget exceeded; retry later
+        '503':
+          description: Shared state unavailable
+  /abuseshield/mobile/nonce:
+    post:
+      summary: Issue a short-lived single-use mobile integrity v2 nonce
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [operation, app_id, method, path]
+              additionalProperties: false
+              properties:
+                operation:
+                  type: string
+                  maxLength: 64
+                app_id:
+                  type: string
+                  maxLength: 128
+                method:
+                  type: string
+                  maxLength: 16
+                path:
+                  type: string
+                  maxLength: 512
+      responses:
+        '200':
+          description: Single-use nonce bound to operation, app_id, method, and path
+        '400':
+          description: Invalid request or unregistered mobile operation
+        '429':
+          description: Nonce issuance budget exceeded
+        '503':
+          description: Shared Redis state unavailable

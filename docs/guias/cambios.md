@@ -3,6 +3,20 @@
 Antes de actualizar, guarda qué versión funciona y cómo volver a ella. Las
 imágenes, las claves y los datos deben corresponder entre sí.
 
+```mermaid
+flowchart LR
+    current[Versión que funciona] --> backup[Copia verificada]
+    backup --> isolated[Prueba separada]
+    isolated --> decision{¿Pasa salud y tráfico?}
+    decision -->|Sí| rollout[Cambio controlado]
+    decision -->|No| fix[Corregir sin tocar producción]
+    rollout --> verify[Comprobar primeras solicitudes]
+    verify -->|Falla| restore[Restaurar código y estado compatibles]
+```
+
+Volver solo el código no basta cuando la versión nueva cambió datos, claves o
+formatos persistentes.
+
 ## Preparar la copia
 
 Desde la raíz del repositorio:
@@ -78,6 +92,6 @@ Las claves y el historial no se trasladan por usar un nombre de edición distint
 El restore comprueba la edición y no es una herramienta de conversión entre ellas.
 
 Prueba el destino por separado y define qué estado conservar antes de mover
-tráfico. La [política técnica de actualización](../upgrade-rollback-policy.md)
+tráfico. La [política técnica de actualización](cambios.md)
 recoge los controles adicionales; no hay una migración universal de un comando
 entre todas las combinaciones de edición, versión e infraestructura.

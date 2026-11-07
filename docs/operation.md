@@ -2,11 +2,11 @@
 
 ## Qué mirar primero
 
-1. Acción aplicada
-2. Alcance de la acción
-3. Evidencia disponible
-4. Salud de dependencias
-5. Ventana y fuente de los datos
+1. Acción aplicada (`allow`, `observe`, `challenge`, `block` o resultado operacional `retry`)
+2. Alcance de la acción (actor, ruta, operación, ventana y tenant)
+3. Evidencia disponible e independencia de señales
+4. Salud de dependencias (`degraded` o `quarantine` del servicio/módulo)
+5. Ventana y fuente de los datos (ClickHouse o trazas en memoria del runtime)
 
 Un panel sin datos significa que hay que revisar la fuente y su salud. No significa cero abuso.
 
@@ -14,32 +14,35 @@ Un panel sin datos significa que hay que revisar la fuente y su salud. No signif
 
 ```mermaid
 flowchart TD
-    A[Acción] --> B[Alcance]
-    B --> C[Evidence disponible]
-    C --> D[Salud de dependencias]
-    D --> E[Ventana y fuente]
-    E --> F{¿Alcanza para actuar?}
-    F -->|no| G[Dejar limitado y abrir revisión]
-    F -->|sí| H[Aplicar la política documentada]
+    A["Acción observada"] --> B["Alcance"]
+    B --> C["Evidencia disponible"]
+    C --> D["Salud de dependencias"]
+    D --> E["Ventana y fuente"]
+    E --> F{"¿Alcanza para actuar?"}
+    F -->|no| G["Mantener acotado y abrir revisión"]
+    F -->|sí| H["Aplicar la política documentada"]
 ```
 
-## Acciones
+## Decisiones y estados
 
-| Acción | Lectura |
-| --- | --- |
-| `allow` | La solicitud continúa |
-| `observe` | Continúa y deja evidencia |
-| `challenge` | Pide una comprobación compatible con el cliente |
-| `deny` | La solicitud se rechaza |
-| `degraded` | La decisión está limitada por una dependencia o módulo no confiable |
+Consulta también el [Canon de decisiones](reference/decision-canon.md).
+
+| Valor | Tipo | Lectura operativa |
+| --- | --- | --- |
+| `allow` | Decisión | La solicitud continúa sin intervención |
+| `observe` | Decisión | Continúa y conserva evidencia para revisión |
+| `challenge` | Decisión | Pide una comprobación compatible con la capacidad del cliente |
+| `block` | Decisión | La solicitud se deniega dentro de un alcance concreto |
+| `retry` | Resultado operacional | Repetir tras `Retry-After` por indisponibilidad temporal del estado compartido; no es bloqueo |
+| `degraded` / `quarantine` | Estado operativo | Dependencia o módulo limitado; nunca debe leerse como culpabilidad del visitante |
 
 ## Casos que requieren contexto
 
-Una persona con VPN, Firefox endurecido, bloqueadores, móvil inestable o una red compartida no debe bloquearse por una sola señal. Comprueba la secuencia completa y el alcance antes de cambiar un umbral.
+Una persona con VPN, navegador endurecido, bloqueadores, móvil inestable o una red compartida no debe bloquearse por una sola señal. Comprueba la secuencia completa y el alcance antes de cambiar un umbral.
 
-## Vuelta atrás
+## Copias selladas y vuelta atrás
 
-Antes de una actualización conserva el identificador de versión, las imágenes y el estado compatible. Si salud, autenticación o decisiones cambian de forma inesperada, detén la ampliación y vuelve al conjunto conocido.
+Antes de una actualización conserva la revisión exacta, las imágenes y un backup verificado (`./abuseshield backup <edición>`, sellable con `ABUSE_SHIELD_BACKUP_PASSPHRASE_FILE` bajo el esquema `abuseshield-backup-v2`). Si salud, autenticación o decisiones cambian de forma inesperada, detén la ampliación y restaura el conjunto conocido ([Cambios y recuperación](guias/cambios.md)).
 
 ## Falso positivo y omisión
 

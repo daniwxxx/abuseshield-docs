@@ -1,0 +1,59 @@
+{
+  "schema_version": "abuseshield.mobile-registry.v1",
+  "version": "mobile-policy-2026-09-06",
+  "expires_at": "2027-09-06T00:00:00Z",
+  "credential_references": {
+    "ios-production": {
+      "platform": "ios",
+      "provider": "apple_app_attest",
+      "ref": "secret://mobile/ios/app-attest/production",
+      "key_id": "ios-app-attest-production"
+    },
+    "android-production": {
+      "platform": "android",
+      "provider": "play_integrity",
+      "ref": "gcp-sm://projects/project-id/secrets/play-integrity-production",
+      "key_id": "play-integrity-production"
+    }
+  },
+  "tenants": {
+    "tenant-production": {
+      "apps": {
+        "com.example.ios": {
+          "enabled": true,
+          "platform": "ios",
+          "provider": "apple_app_attest",
+          "environment": "production",
+          "credential_ref": "ios-production",
+          "operations": {
+            "login": {
+              "methods": ["POST"],
+              "paths": ["/v1/login"]
+            },
+            "checkout": {
+              "methods": ["POST", "PATCH"],
+              "paths": ["/v1/checkout", "/v1/checkout/*"]
+            }
+          }
+        },
+        "com.example.android": {
+          "enabled": true,
+          "platform": "android",
+          "provider": "play_integrity",
+          "environment": "production",
+          "credential_ref": "android-production",
+          "operations": {
+            "login": {
+              "methods": ["POST"],
+              "paths": ["/v1/login"]
+            },
+            "checkout": {
+              "methods": ["POST", "PATCH"],
+              "paths": ["/v1/checkout", "/v1/checkout/*"]
+            }
+          }
+        }
+      }
+    }
+  }
+}
